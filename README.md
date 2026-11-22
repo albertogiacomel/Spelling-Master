@@ -13,7 +13,8 @@ spelling diretto, indiretto e sfida con tre vite.
 - 49 parole con traduzione italiana, categoria e frase di esempio.
 - Voce inglese del dispositivo (US o UK), velocità lenta e pausa regolabile.
 - Tastiera fisica e tastiera magica sullo schermo; pronuncia della singola lettera.
-- Alfabeto A-Z con lettere "birichine" ed esempi fonetici.
+- Alfabeto A-Z con pronuncia completa o delle sole lettere "birichine",
+  esempi fonetici e A pronunciata “ey”.
 - Stelle, serie di risposte corrette, tre vite nella sfida, record salvato.
 - Preferenze condivise del kit: lingua IT/EN, tema, contrasto, animazioni,
   audio, difficoltà e schermo intero.
