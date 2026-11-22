@@ -40,6 +40,19 @@ try {
     await click('#klaro .cookie-notice .cm-btn-decline');
   }
 
+  await click('#btn-alphabet');
+  await wait("document.getElementById('alphabet-dialog').open", 'live alphabet open');
+  const alphabet = await evaluate(`(()=>{const dialog=document.getElementById('alphabet-dialog');const grid=document.getElementById('alphabet-grid');const card=grid.querySelector('.sp-letter-card strong');return {all:document.getElementById('btn-alphabet-all').textContent,a:grid.querySelector('[data-letter="A"] span').textContent,width:dialog.getBoundingClientRect().width,columns:getComputedStyle(grid).gridTemplateColumns.split(' ').length,letterSize:parseFloat(getComputedStyle(card).fontSize)};})()`);
+  assert.ok(alphabet.all.includes('tutto l’alfabeto'));
+  assert.equal(alphabet.a, '/eɪ/ “ey”');
+  assert.ok(alphabet.width >= 380);
+  assert.equal(alphabet.columns, 3);
+  assert.ok(alphabet.letterSize >= 24);
+  const alphabetShot = await command('Page.captureScreenshot', { format: 'png' });
+  await writeFile(join(artifacts, 'live-alphabet-mobile.png'), Buffer.from(alphabetShot.data, 'base64'));
+  await click('#btn-alphabet-done');
+  await wait("!document.getElementById('alphabet-dialog').open", 'live alphabet close');
+
   await click('[data-start="direct"]');
   await wait("document.getElementById('screen-game').hidden===false", 'live game start');
   await click('#btn-hint');
