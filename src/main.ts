@@ -195,6 +195,7 @@ class SpellingApp {
       const button = document.createElement('button');
       button.type = 'button';
       button.className = `sp-letter-card${entry.tricky ? ' sp-letter-card--tricky' : ''}`;
+      button.dataset.letter = entry.letter;
       button.title = `${entry.letter} ${entry.ipa}`;
       button.setAttribute('aria-label', `${entry.letter}, ${entry.ipa}`);
       const letter = document.createElement('strong');
@@ -289,6 +290,7 @@ class SpellingApp {
     element('btn-alphabet').addEventListener('click', () => this.openAlphabet());
     element('btn-alphabet-close').addEventListener('click', () => this.closeAlphabet());
     element('btn-alphabet-done').addEventListener('click', () => this.closeAlphabet());
+    element('btn-alphabet-all').addEventListener('click', () => void this.speakAlphabet());
     element('btn-tricky').addEventListener('click', () => void this.speakTricky());
 
     const alphabetDialog = element<HTMLDialogElement>('alphabet-dialog');
@@ -297,6 +299,7 @@ class SpellingApp {
     });
     alphabetDialog.addEventListener('close', () => {
       this.stopSpeech();
+      this.clearAlphabetHighlight();
       this.controller.lifecycle.resume('alphabet');
       element('btn-alphabet').focus({ preventScroll: true });
     });
@@ -1012,6 +1015,26 @@ class SpellingApp {
     void this.speech.speakLetter(letter, this.currentAccent(), 1);
   }
 
+  private async speakAlphabet(): Promise<void> {
+    const snapshot = this.settings.getSnapshot();
+    if (snapshot.muted || !snapshot.voice || !this.speech.hasVoice(this.currentAccent())) {
+      this.updateVoiceStatus();
+      return;
+    }
+    this.announce(this.t('alphabetAll'));
+    await this.speech.speakLetters(
+      ALPHABET.map((entry) => entry.letter),
+      this.currentAccent(),
+      0.9,
+      450,
+      (index) => {
+        const entry = ALPHABET[index];
+        if (entry) this.highlightAlphabet(entry.letter);
+      },
+    );
+    this.clearAlphabetHighlight();
+  }
+
   private async speakTricky(): Promise<void> {
     const snapshot = this.settings.getSnapshot();
     if (snapshot.muted || !snapshot.voice || !this.speech.hasVoice(this.currentAccent())) {
@@ -1019,7 +1042,23 @@ class SpellingApp {
       return;
     }
     this.announce(this.t('trickyListen'));
-    await this.speech.speakLetters(TRICKY_LETTERS, this.currentAccent(), 0.9, 500);
+    await this.speech.speakLetters(TRICKY_LETTERS, this.currentAccent(), 0.9, 500, (index) => {
+      const letter = TRICKY_LETTERS[index];
+      if (letter) this.highlightAlphabet(letter);
+    });
+    this.clearAlphabetHighlight();
+  }
+
+  private highlightAlphabet(letter: string): void {
+    document.querySelectorAll<HTMLElement>('#alphabet-grid [data-letter]').forEach((card) => {
+      card.dataset.active = String(card.dataset.letter === letter);
+    });
+  }
+
+  private clearAlphabetHighlight(): void {
+    document.querySelectorAll<HTMLElement>('#alphabet-grid [data-letter]').forEach((card) => {
+      card.removeAttribute('data-active');
+    });
   }
 
   private buildLeds(length: number): void {
@@ -1064,6 +1103,7 @@ class SpellingApp {
   }
 
   private closeAlphabet(): void {
+    this.clearAlphabetHighlight();
     const dialog = element<HTMLDialogElement>('alphabet-dialog');
     if (dialog.open) dialog.close();
   }

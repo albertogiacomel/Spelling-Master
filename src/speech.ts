@@ -1,7 +1,7 @@
 export type Accent = 'en-US' | 'en-GB';
 
 const LETTER_NAMES: Readonly<Record<string, string>> = {
-  A: 'ay',
+  A: 'ey',
   B: 'bee',
   C: 'see',
   D: 'dee',
@@ -31,6 +31,12 @@ const LETTER_NAMES: Readonly<Record<string, string>> = {
 
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export function letterName(letter: string, accent: Accent): string {
+  const upper = letter.toUpperCase();
+  if (upper === 'Z' && accent === 'en-GB') return 'zed';
+  return LETTER_NAMES[upper] ?? upper;
 }
 
 function normalizedLang(value: string): string {
@@ -125,9 +131,7 @@ export class SpeechService {
   }
 
   async speakLetter(letter: string, accent: Accent, rate = 1): Promise<boolean> {
-    const upper = letter.toUpperCase();
-    const name = upper === 'Z' && accent === 'en-GB' ? 'zed' : LETTER_NAMES[upper] ?? upper;
-    return this.speak(name, { accent, rate });
+    return this.speak(letterName(letter, accent), { accent, rate });
   }
 
   async speakLetters(
@@ -144,9 +148,7 @@ export class SpeechService {
       const letter = letters[index];
       if (!letter) continue;
       onIndex?.(index);
-      const upper = letter.toUpperCase();
-      const name = upper === 'Z' && accent === 'en-GB' ? 'zed' : LETTER_NAMES[upper] ?? upper;
-      await this.#utter(name, accent, rate, token);
+      await this.#utter(letterName(letter, accent), accent, rate, token);
       if (token !== this.#token) return false;
       if (index < letters.length - 1) await delay(pauseMs);
     }

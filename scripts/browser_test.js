@@ -76,10 +76,12 @@ try {
   await click('#btn-alphabet');
   await wait("document.getElementById('alphabet-dialog').open", 'alphabet open');
   assert.equal(await evaluate("document.querySelectorAll('#alphabet-grid .sp-letter-card').length"), 26);
+  assert.ok((await evaluate("document.getElementById('btn-alphabet-all').textContent")).includes('tutto l’alfabeto'));
+  assert.equal(await evaluate("document.querySelector('#alphabet-grid [data-letter=\"A\"] span').textContent"), '/eɪ/ “ey”');
   await click('#alphabet-grid .sp-letter-card');
   await click('#btn-alphabet-done');
   await wait("!document.getElementById('alphabet-dialog').open", 'alphabet close');
-  checks.push('Alphabet dialog with 26 letter cards');
+  checks.push('Alphabet dialog with 26 letter cards and the whole-alphabet action');
 
   const initialScore = Number(await evaluate("document.getElementById('stat-score').textContent"));
   await click('[data-start="direct"]');
@@ -149,6 +151,12 @@ try {
   await click('#btn-alphabet');
   await wait("document.getElementById('alphabet-dialog').open", 'alphabet mobile');
   assert.equal(await evaluate("document.documentElement.scrollWidth>innerWidth"), false);
+  const alphabetLayout = await evaluate(`(()=>{const dialog=document.getElementById('alphabet-dialog');const grid=document.getElementById('alphabet-grid');const card=grid.querySelector('.sp-letter-card strong');return {width:dialog.getBoundingClientRect().width,height:dialog.getBoundingClientRect().height,columns:getComputedStyle(grid).gridTemplateColumns.split(' ').length,letterSize:parseFloat(getComputedStyle(card).fontSize)};})()`);
+  assert.ok(alphabetLayout.width >= 380, 'alphabet dialog uses the mobile width');
+  assert.equal(alphabetLayout.columns, 3);
+  assert.ok(alphabetLayout.letterSize >= 24, 'alphabet letters are readable');
+  const alphabetShot = await command('Page.captureScreenshot', { format: 'png' });
+  await writeFile(join(artifacts, 'alphabet-mobile.png'), Buffer.from(alphabetShot.data, 'base64'));
   await click('#btn-alphabet-done');
   await command('Emulation.setDeviceMetricsOverride', { width: 1280, height: 1000, deviceScaleFactor: 1, mobile: false });
   checks.push('Responsive layout at 1280, 390 and 320 px without overflow');

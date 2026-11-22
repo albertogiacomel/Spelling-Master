@@ -142,7 +142,7 @@ export interface AlphabetEntry {
 }
 
 export const ALPHABET: readonly AlphabetEntry[] = [
-  { letter: 'A', ipa: '/eɪ/ “ei”', tricky: true },
+  { letter: 'A', ipa: '/eɪ/ “ey”', tricky: true },
   { letter: 'B', ipa: '/biː/ “bee”', tricky: false },
   { letter: 'C', ipa: '/siː/ “see”', tricky: false },
   { letter: 'D', ipa: '/diː/ “dee”', tricky: false },

@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  ALPHABET,
   ALL_WORDS,
   WORD_DATABASE,
   getPool,
@@ -9,6 +10,7 @@ import {
   scoreFor,
   sentenceParts,
 } from '../src/words.ts';
+import { letterName } from '../src/speech.ts';
 
 test('every word is unique, correctly sized and present once in its sentence', () => {
   const seen = new Set();
@@ -59,6 +61,18 @@ test('sentence parts mask the target word and reveal it on request', () => {
   const revealed = sentenceParts('The small cat drinks milk.', 'CAT', true);
   assert.ok(revealed.some((part) => part.blank && part.text.toLowerCase() === 'cat'));
   assert.equal(sentenceParts('No target here.', 'CAT')[0]?.text, 'No target here.');
+});
+
+test('the alphabet uses the Italian-readable “ey” for A and covers A-Z', () => {
+  assert.equal(ALPHABET.length, 26);
+  assert.equal(ALPHABET[0]?.letter, 'A');
+  assert.match(ALPHABET[0]?.ipa ?? '', /ey/u);
+  assert.equal(new Set(ALPHABET.map((entry) => entry.letter)).size, 26);
+  assert.equal(letterName('A', 'en-US'), 'ey');
+  assert.equal(letterName('A', 'en-GB'), 'ey');
+  assert.equal(letterName('H', 'en-US'), 'aitch');
+  assert.equal(letterName('Z', 'en-US'), 'zee');
+  assert.equal(letterName('Z', 'en-GB'), 'zed');
 });
 
 test('score rewards longer words and streaks, while hints reduce the reward', () => {
