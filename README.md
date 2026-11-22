@@ -54,8 +54,10 @@ npx wrangler pages deploy dist --project-name spelling --branch main
 ```
 
 Il dominio personalizzato è `spelling.giacomel.info`; il CNAME deve puntare a
-`spelling.pages.dev`. La policy e i preferiti privacy sono in
-`https://spelling.giacomel.info/privacy.html`.
+`spelling-avm.pages.dev`. In questa zona il record va lasciato in **DNS only**
+(proxy Cloudflare disattivato): la regola wildcard `*.giacomel.info` risponde 403
+prima di Pages e impedirebbe la validazione HTTP del certificato. La policy e i
+preferiti privacy sono in `https://spelling.giacomel.info/privacy.html`.
 
 ## Struttura
 

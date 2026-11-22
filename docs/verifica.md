@@ -23,3 +23,16 @@ Flussi browser verificati:
 
 Artefatti locali: `artifacts/build.json`, `artifacts/browser/browser-report.json`,
 `artifacts/browser/home-desktop.png`.
+
+## Pubblico (2026-11-22)
+
+| Controllo | Comando | Esito |
+|---|---|---|
+| Hash HTML e asset | `npm run verify:live` | PASS, 135.630 byte |
+| Gioco nel browser | `npm run test:live` | PASS, parola `STAR`, 0 eccezioni |
+| Card sul portfolio | `https://www.giacomel.info/` | link e copertina presenti |
+
+URL: `https://spelling.giacomel.info/`. Il CNAME `spelling-avm.pages.dev` è in
+modalità DNS only per evitare il blocco del wildcard di zona; il certificato
+Pages risulta `active`. Artefatti: `artifacts/live.json`,
+`artifacts/live-browser/live-browser.json`, `artifacts/live-browser/live-mobile.png`.

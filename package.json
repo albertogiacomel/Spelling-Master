@@ -9,6 +9,7 @@
     "typecheck": "tsc -p tsconfig.json",
     "test": "node --test scripts/core_test.js scripts/storage_test.js",
     "test:browser": "node scripts/browser_test.js",
+    "test:live": "node scripts/browser_live_test.js",
     "check:privacy": "node scripts/site-privacy-check.js",
     "verify:live": "node scripts/verify-live.js",
     "check:design-system": "node ../videogames-kit/scripts/check-design-system.ts"
