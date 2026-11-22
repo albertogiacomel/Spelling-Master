@@ -7,7 +7,7 @@
   "scripts": {
     "build": "npm run typecheck && node scripts/build.js",
     "typecheck": "tsc -p tsconfig.json",
-    "test": "node --test scripts/core_test.js scripts/storage_test.js",
+    "test": "node --test scripts/core_test.js scripts/storage_test.js scripts/speech_test.js",
     "test:browser": "node scripts/browser_test.js",
     "test:live": "node scripts/browser_live_test.js",
     "check:privacy": "node scripts/site-privacy-check.js",
