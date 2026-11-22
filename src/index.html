@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f59e0b">
+<meta name="description" content="Spelling & Magic Box: ascolta la voce inglese, scrivi le lettere e impara lo spelling con tre modalità di gioco.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Spelling & Magic Box">
+<meta property="og:description" content="Ascolta la voce inglese, scrivi le lettere e diventa un campione di spelling.">
+<meta property="og:url" content="https://spelling.giacomel.info/">
+<meta property="og:image" content="https://spelling.giacomel.info/icon.svg">
+<meta name="twitter:card" content="summary">
+<title>Spelling &amp; Magic Box • Gioco educativo</title>
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="manifest" href="./site.webmanifest">
+<link rel="canonical" href="https://spelling.giacomel.info/">
+<style>/* INLINE_CSS */</style>
+</head>
+<body>
+<main id="app" class="sp-app">
+  <div class="sp-shell">
+    <header class="sp-topbar ag-topbar">
+      <a class="sp-brand" href="#" id="brand" aria-label="Spelling & Magic Box">
+        <span class="sp-logo" aria-hidden="true">
+          <svg viewBox="0 0 64 64" role="img" focusable="false">
+            <rect width="64" height="64" rx="15" fill="#f59e0b"/>
+            <path d="M22 12c4-3 12-3 16 0" fill="none" stroke="#fef9c3" stroke-width="2.6" stroke-linecap="round"/>
+            <path d="M26 17c2.5-1.5 6.5-1.5 9 0" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round"/>
+            <g transform="rotate(-9 16 37)">
+              <rect x="6" y="26" width="20" height="22" rx="5" fill="#38bdf8" stroke="#075985" stroke-width="2.4"/>
+              <text x="16" y="42" text-anchor="middle" fill="#fff" font-family="ui-rounded, sans-serif" font-weight="800" font-size="14">A</text>
+            </g>
+            <g transform="rotate(9 48 37)">
+              <rect x="38" y="26" width="20" height="22" rx="5" fill="#a855f7" stroke="#581c87" stroke-width="2.4"/>
+              <text x="48" y="42" text-anchor="middle" fill="#fff" font-family="ui-rounded, sans-serif" font-weight="800" font-size="14">C</text>
+            </g>
+            <rect x="21" y="30" width="22" height="24" rx="5.5" fill="#fef9c3" stroke="#92400e" stroke-width="2.6"/>
+            <text x="32" y="47" text-anchor="middle" fill="#92400e" font-family="ui-rounded, sans-serif" font-weight="800" font-size="15.5">B</text>
+            <circle cx="48" cy="51" r="7.5" fill="#10b981" stroke="#065f46" stroke-width="2"/>
+            <path d="M44.5 51l2.5 2.5 4.8-5" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="sp-brand-text">
+          <strong>Spelling <span aria-hidden="true">&amp;</span> Magic Box</strong>
+          <small data-i18n="tagline">Impara lo spelling inglese giocando</small>
+        </span>
+      </a>
+
+      <div class="sp-tools">
+        <div class="sp-stats" aria-live="polite">
+          <span class="sp-pill sp-pill--stars" id="stat-stars" title="Stelle totali">
+            <span aria-hidden="true">⭐</span>
+            <span id="stat-score">0</span>
+            <span class="sp-visually-hidden" data-i18n="starsLabel">stelle</span>
+          </span>
+          <span class="sp-pill sp-pill--streak" id="stat-streak-wrap" title="Serie di risposte corrette">
+            <span aria-hidden="true">🔥</span>
+            <span id="stat-streak">0</span>
+          </span>
+          <span class="sp-pill sp-pill--lives" id="stat-lives" title="Vite rimanenti" hidden></span>
+        </div>
+        <button class="sp-button sp-button--quiet" id="btn-alphabet" type="button">
+          <span aria-hidden="true">🔤</span>
+          <span data-i18n="alphabet">Alfabeto A-Z</span>
+        </button>
+        <div id="game-controls" class="sp-controls"></div>
+      </div>
+    </header>
+
+    <p class="sp-visually-hidden" id="screen-announcer" role="status" aria-live="polite"></p>
+
+    <section class="sp-screen" id="screen-menu" aria-labelledby="menu-title">
+      <div class="sp-hero sp-card">
+        <span class="sp-eyebrow">✨ <span data-i18n="heroEyebrow">Magic English Spelling Box</span> ✨</span>
+        <h1 class="sp-title" id="menu-title" data-i18n="heroTitle">Gioca con le lettere in inglese!</h1>
+        <p class="sp-lead" data-i18n="heroLead">Ascolta la voce inglese, apri la scatola magica delle parole e diventa un campione di spelling.</p>
+        <div class="sp-hero-tiles" aria-hidden="true">
+          <span class="sp-tile sp-tile--sky">A</span>
+          <span class="sp-tile sp-tile--amber">B</span>
+          <span class="sp-tile sp-tile--violet">C</span>
+          <span class="sp-tile sp-tile--emerald">✓</span>
+        </div>
+      </div>
+
+      <div class="sp-card sp-panel">
+        <div class="sp-section-head">
+          <h2 data-i18n="chooseLevel">1. Scegli il livello</h2>
+          <p class="sp-hint-text" id="difficulty-desc"></p>
+        </div>
+        <div class="sp-choice-grid" id="difficulty-grid" role="group" aria-labelledby="difficulty-label">
+          <span class="sp-visually-hidden" id="difficulty-label" data-i18n="chooseLevel">Scegli il livello</span>
+          <button type="button" class="sp-choice" data-difficulty="principiante" aria-pressed="true">
+            <strong data-i18n="level1">Livello 1 ⭐</strong>
+            <small data-i18n="level1Desc">3-4 lettere facili</small>
+          </button>
+          <button type="button" class="sp-choice" data-difficulty="intermedio" aria-pressed="false">
+            <strong data-i18n="level2">Livello 2 ⭐⭐</strong>
+            <small data-i18n="level2Desc">5 lettere</small>
+          </button>
+          <button type="button" class="sp-choice" data-difficulty="avanzato" aria-pressed="false">
+            <strong data-i18n="challenge">Sfida ⭐⭐⭐</strong>
+            <small data-i18n="challengeDesc">6-7 lettere</small>
+          </button>
+          <button type="button" class="sp-choice" data-difficulty="tutti" aria-pressed="false">
+            <strong data-i18n="allWords">Tutte 🌈</strong>
+            <small data-i18n="allWordsDesc">Mix completo</small>
+          </button>
+        </div>
+
+        <details class="sp-options">
+          <summary data-i18n="audioOptions">Opzioni di ascolto</summary>
+          <div class="sp-options-grid">
+            <div class="sp-option">
+              <span class="sp-option-label" data-i18n="accentLabel">Accento inglese</span>
+              <div class="sp-segmented" role="group" aria-label="Accento inglese">
+                <button type="button" id="btn-accent-us" data-accent="en-US" aria-pressed="true">🇺🇸 US <small>(Z = zee)</small></button>
+                <button type="button" id="btn-accent-gb" data-accent="en-GB" aria-pressed="false">🇬🇧 UK <small>(Z = zed)</small></button>
+              </div>
+            </div>
+            <div class="sp-option">
+              <div class="sp-option-row">
+                <label for="letter-pause" class="sp-option-label" data-i18n="pauseLabel">Pausa tra le lettere</label>
+                <output id="pause-value" for="letter-pause">0,75 s</output>
+              </div>
+              <input id="letter-pause" type="range" min="350" max="1500" step="50" value="750">
+              <div class="sp-range-labels">
+                <span data-i18n="pauseFast">Veloce</span>
+                <span data-i18n="pauseSlow">Con calma</span>
+              </div>
+            </div>
+          </div>
+          <div class="sp-voice-row">
+            <span class="sp-voice-dot" id="voice-dot" aria-hidden="true"></span>
+            <span id="voice-status" class="sp-voice-status" data-i18n="voiceChecking">Controllo della voce inglese…</span>
+            <button type="button" class="sp-button sp-button--quiet sp-button--small" id="btn-test-voice">
+              <span aria-hidden="true">🔊</span>
+              <span data-i18n="testVoice">Prova voce</span>
+            </button>
+          </div>
+        </details>
+      </div>
+
+      <div class="sp-modes" id="mode-grid">
+        <button type="button" class="sp-mode sp-mode--sky" data-start="direct">
+          <span class="sp-mode-icon" aria-hidden="true">🔍</span>
+          <span class="sp-mode-body">
+            <strong data-i18n="modeDirect">1. Spelling diretto</strong>
+            <span data-i18n="modeDirectDesc">Ascolta la parola intera e scrivila nella scatola magica.</span>
+          </span>
+          <span class="sp-mode-cta" data-i18n="playNow">Gioca ora</span>
+        </button>
+        <button type="button" class="sp-mode sp-mode--emerald" data-start="indirect">
+          <span class="sp-mode-icon" aria-hidden="true">❓</span>
+          <span class="sp-mode-body">
+            <strong data-i18n="modeIndirect">2. Spelling indiretto</strong>
+            <span data-i18n="modeIndirectDesc">Ascolta le lettere una alla volta e scopri la parola nascosta.</span>
+          </span>
+          <span class="sp-mode-cta" data-i18n="playNow">Gioca ora</span>
+        </button>
+        <button type="button" class="sp-mode sp-mode--amber" data-start="mixed">
+          <span class="sp-mode-badge" data-i18n="threeLives">❤️ 3 vite</span>
+          <span class="sp-mode-icon" aria-hidden="true">🎯</span>
+          <span class="sp-mode-body">
+            <strong data-i18n="modeMixed">3. Sfida magica</strong>
+            <span data-i18n="modeMixedDesc">Alterna diretto e indiretto con tre cuori. Raccogli più stelle che puoi.</span>
+          </span>
+          <span class="sp-mode-cta" data-i18n="startChallenge">Inizia sfida</span>
+        </button>
+      </div>
+
+      <details class="sp-adult sp-card">
+        <summary data-i18n="adultTitle">Per chi accompagna il bambino</summary>
+        <div class="sp-adult-body">
+          <p data-i18n="adultText1">Non ci sono timer né penalità. Ogni parola può essere riascoltata, scritta con la tastiera fisica o con la tastiera magica sullo schermo.</p>
+          <p data-i18n="adultText2">La voce inglese usa quella installata sul dispositivo: se non è disponibile, un adulto può leggere la parola. Progressi e preferenze restano in questo browser; non vengono inviati a un server.</p>
+          <p class="sp-storage-note" id="storage-note"></p>
+          <button type="button" class="sp-button sp-button--danger sp-button--small" id="btn-reset-progress" hidden data-i18n="resetProgress">Azzera le stelle salvate</button>
+        </div>
+      </details>
+    </section>
+
+    <section class="sp-screen" id="screen-game" aria-labelledby="round-instruction" hidden>
+      <div class="sp-gamebar">
+        <button type="button" class="sp-button sp-button--quiet sp-button--small" id="btn-home">
+          <span aria-hidden="true">🏠</span>
+          <span data-i18n="menu">Menu</span>
+        </button>
+        <div class="sp-gamebar-badges">
+          <span class="sp-badge" id="badge-mode">🔍 Spelling diretto</span>
+          <span class="sp-badge sp-badge--amber" id="badge-difficulty">Livello 1</span>
+        </div>
+        <span class="sp-word-number"><span data-i18n="wordNumber">Parola</span> #<span id="current-word-num">1</span></span>
+      </div>
+
+      <div class="sp-card sp-magic" id="game-card">
+        <div class="sp-magic-label">🎁 <span data-i18n="magicBox">Magic Spelling Box</span></div>
+
+        <div class="sp-round">
+          <p class="sp-instruction" id="round-instruction">Ascolta la parola in inglese e scrivila qui sotto.</p>
+
+          <div class="sp-audio-actions">
+            <button type="button" class="sp-button sp-button--primary sp-button--listen" id="btn-play">
+              <span aria-hidden="true">🔊</span>
+              <span id="btn-play-label" data-i18n="listenWord">Ascolta parola</span>
+            </button>
+            <button type="button" class="sp-button sp-button--amber" id="btn-play-slow">
+              <span aria-hidden="true">🐢</span>
+              <span data-i18n="slow">Piano</span>
+            </button>
+            <button type="button" class="sp-button sp-button--violet" id="btn-play-sentence">
+              <span aria-hidden="true">💬</span>
+              <span data-i18n="sentence">Frase</span>
+            </button>
+          </div>
+
+          <div class="sp-visualizer" id="visualizer" hidden aria-live="polite">
+            <span class="sp-bar"></span><span class="sp-bar"></span><span class="sp-bar"></span><span class="sp-bar"></span><span class="sp-bar"></span>
+            <span id="visualizer-text" class="sp-visualizer-text"></span>
+          </div>
+
+          <div class="sp-leds" id="indirect-leds" hidden>
+            <div class="sp-led-row" id="led-row"></div>
+            <span class="sp-led-counter" id="led-counter"></span>
+          </div>
+
+          <div class="sp-hint-row">
+            <button type="button" class="sp-button sp-button--hint" id="btn-hint">
+              <span aria-hidden="true">💡</span>
+              <span data-i18n="hint">Aiuto: significato in italiano</span>
+            </button>
+            <div class="sp-hint-box" id="hint-box" hidden>
+              <span aria-hidden="true">🇮🇹</span>
+              <strong id="hint-translation"></strong>
+              <span aria-hidden="true">•</span>
+              <span id="hint-category"></span>
+            </div>
+          </div>
+
+          <div class="sp-sentence" id="sentence-box">
+            <span class="sp-sentence-icon" aria-hidden="true">📖</span>
+            <div>
+              <span class="sp-sentence-label" data-i18n="sentenceLabel">Frase di esempio</span>
+              <p id="sentence-text"></p>
+            </div>
+            <button type="button" class="sp-icon-button" id="btn-sentence-inline" title="Ascolta la frase di esempio" aria-label="Ascolta la frase di esempio">
+              <span aria-hidden="true">🔊</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="sp-slot-panel">
+          <div class="sp-slot-head">
+            <span><span data-i18n="wordHas">La parola ha</span> <strong id="word-length">0</strong> <span data-i18n="wordLetters">lettere</span></span>
+            <button type="button" class="sp-link-button" id="btn-clear" hidden>
+              <span aria-hidden="true">🧹</span>
+              <span data-i18n="clear">Cancella tutto</span>
+            </button>
+          </div>
+          <div class="sp-slots" id="letter-slots" aria-hidden="true"></div>
+        </div>
+
+        <form id="spelling-form" class="sp-form" autocomplete="off">
+          <label class="sp-visually-hidden" for="spelling-input" data-i18n="inputLabel">Scrivi le lettere della parola inglese</label>
+          <input
+            id="spelling-input"
+            type="text"
+            inputmode="text"
+            enterkeyhint="done"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="characters"
+            spellcheck="false"
+            placeholder="Scrivi qui le lettere…"
+            aria-describedby="word-length-help"
+          >
+          <span class="sp-visually-hidden" id="word-length-help" data-i18n="inputHelp">Le lettere vengono controllate senza distinguere maiuscole e minuscole.</span>
+          <div class="sp-form-actions">
+            <button type="submit" class="sp-button sp-button--success sp-button--wide" id="btn-check">
+              <span aria-hidden="true">✅</span>
+              <span data-i18n="check">Controlla!</span>
+            </button>
+            <button type="button" class="sp-button sp-button--quiet" id="btn-skip">
+              <span data-i18n="skip">Salta</span>
+              <span aria-hidden="true">⏭️</span>
+            </button>
+          </div>
+        </form>
+
+        <div class="sp-feedback" id="feedback" hidden aria-live="polite">
+          <div class="sp-feedback-main">
+            <span class="sp-feedback-icon" id="feedback-icon" aria-hidden="true"></span>
+            <div class="sp-feedback-copy">
+              <h2 id="feedback-title"></h2>
+              <p id="feedback-detail"></p>
+              <div class="sp-diff" id="letter-diff"></div>
+            </div>
+          </div>
+          <div class="sp-feedback-actions">
+            <button type="button" class="sp-button sp-button--quiet sp-button--small" id="btn-feedback-word">
+              <span aria-hidden="true">🔊</span>
+              <span data-i18n="feedbackWord">Parola</span>
+            </button>
+            <button type="button" class="sp-button sp-button--quiet sp-button--small" id="btn-feedback-letters">
+              <span aria-hidden="true">🔤</span>
+              <span data-i18n="feedbackLetters">Lettere</span>
+            </button>
+            <button type="button" class="sp-button sp-button--amber" id="btn-next">
+              <span data-i18n="next">Avanti</span>
+              <span aria-hidden="true">➡️</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sp-card sp-keyboard-card">
+        <div class="sp-keyboard-head">
+          <span>🎹 <span data-i18n="keyboard">Tastiera magica</span></span>
+          <label class="sp-check">
+            <input type="checkbox" id="speak-on-key" checked>
+            <span data-i18n="speakOnKey">Pronuncia ogni lettera</span>
+          </label>
+        </div>
+        <div class="sp-keyboard" id="virtual-keyboard"></div>
+      </div>
+    </section>
+
+    <section class="sp-screen sp-results" id="screen-results" aria-labelledby="results-title" hidden>
+      <div class="sp-card sp-results-card">
+        <div class="sp-results-icon" aria-hidden="true">🏆</div>
+        <h1 class="sp-title" id="results-title" data-i18n="resultsTitle">Ottimo lavoro! Great job!</h1>
+        <p class="sp-lead" id="results-lead"></p>
+        <div class="sp-results-grid">
+          <div><span data-i18n="finalStars">Stelle</span><strong id="final-score">0</strong></div>
+          <div><span data-i18n="finalCorrect">Parole OK</span><strong id="final-correct">0</strong></div>
+          <div><span data-i18n="finalStreak">Record 🔥</span><strong id="final-streak">0</strong></div>
+        </div>
+        <p class="sp-results-message" id="results-message"></p>
+        <div class="sp-results-actions">
+          <button type="button" class="sp-button sp-button--success" id="btn-again">
+            <span aria-hidden="true">🔄</span>
+            <span data-i18n="playAgain">Gioca ancora</span>
+          </button>
+          <button type="button" class="sp-button sp-button--quiet" id="btn-results-home">
+            <span aria-hidden="true">🏠</span>
+            <span data-i18n="mainMenu">Menu principale</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <p class="sp-footnote" data-i18n="footerHint">Suggerimento: premi Invio per controllare e Spazio per riascoltare quando non stai scrivendo.</p>
+    <noscript><p class="sp-card sp-noscript">Per giocare, abilita JavaScript nel browser.</p></noscript>
+  </div>
+</main>
+
+<dialog class="sp-dialog" id="alphabet-dialog" aria-labelledby="alphabet-title">
+  <div class="sp-dialog-head">
+    <div>
+      <h2 id="alphabet-title">🔤 <span data-i18n="alphabetTitle">Esplora l'alfabeto inglese</span></h2>
+      <p data-i18n="alphabetLead">Tocca una lettera per ascoltarne la pronuncia.</p>
+    </div>
+    <button type="button" class="sp-icon-button" id="btn-alphabet-close" aria-label="Chiudi">
+      <span aria-hidden="true">✕</span>
+    </button>
+  </div>
+  <div class="sp-dialog-body">
+    <p class="sp-tip" data-i18n="trickyNote">Le tessere gialle sono le lettere che in inglese cambiano suono rispetto all'italiano.</p>
+    <div class="sp-alphabet-grid" id="alphabet-grid"></div>
+  </div>
+  <div class="sp-dialog-foot">
+    <button type="button" class="sp-button sp-button--amber" id="btn-tricky">
+      <span aria-hidden="true">🎵</span>
+      <span data-i18n="trickyListen">Ascolta le lettere birichine</span>
+    </button>
+    <button type="button" class="sp-button sp-button--quiet" id="btn-alphabet-done" data-i18n="close">Chiudi</button>
+  </div>
+</dialog>
+
+<script id="spelling-runtime">/* INLINE_JS */</script>
+<script defer src="./site-privacy/runtime.js" data-site-profile="game"></script>
+</body>
+</html>

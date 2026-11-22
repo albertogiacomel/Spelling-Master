@@ -1,0 +1,116 @@
+{
+  "name": "@albertogiacomel/videogames-kit",
+  "version": "0.3.0",
+  "source": {
+    "repository": "albertogiacomel/videogames-kit",
+    "commit": "a2ea2f89926ea9029aae7e15002f4154e7c54a86",
+    "dirty": false
+  },
+  "files": [
+    {
+      "path": "adapters/react-ui.d.ts",
+      "bytes": 394,
+      "sha256": "254709e050a54c864838dc67c8372736ea52ce1041107891475c69cd558d1a80"
+    },
+    {
+      "path": "adapters/react-ui.js",
+      "bytes": 1525,
+      "sha256": "b3f734603356c1c8cbac4ca1753d6849b2584661e756e57e374567e4d92ecf6d"
+    },
+    {
+      "path": "adapters/react.d.ts",
+      "bytes": 472,
+      "sha256": "5fe89f192a874f8da0018eb344866f5ae477cb27f21885c3aba6f452d4ed373e"
+    },
+    {
+      "path": "adapters/react.js",
+      "bytes": 763,
+      "sha256": "6dfd3f2bf84fb368e95ebf4647b942b93498dd72f9093908bbdf2a139590544a"
+    },
+    {
+      "path": "src/assets.js",
+      "bytes": 1249,
+      "sha256": "44919283e55534e9284b2e339370910fb240a83a81b0dafd87d28ee884e0b459"
+    },
+    {
+      "path": "src/audio.js",
+      "bytes": 4658,
+      "sha256": "dccbde2b2557956b662d1206491dfd1569ec406d6ce38259bf7dbe52a3b96c45"
+    },
+    {
+      "path": "src/fullscreen.js",
+      "bytes": 2341,
+      "sha256": "52da8bea61b4f6ab794ea815ae3300ada493d85314975ff883a114dc6fd1fe7a"
+    },
+    {
+      "path": "src/i18n.js",
+      "bytes": 3644,
+      "sha256": "ac11f91faf472689144bad31c6a5ba8c34fd1c7f5e1e25f9f846004303e57420"
+    },
+    {
+      "path": "src/index.d.ts",
+      "bytes": 6547,
+      "sha256": "78740c602171c9be1a72d242959d52c2c9665693b13c0317276749075383f440"
+    },
+    {
+      "path": "src/index.js",
+      "bytes": 600,
+      "sha256": "e1be9e90229959077830afc39a64176af86617faf5b8e0aef9b6cc5693add85c"
+    },
+    {
+      "path": "src/input.js",
+      "bytes": 4988,
+      "sha256": "f9f364bf77353b86b0d5f7ef2d0080e554bed3ae78fbf2fe73a97bb06d7305cf"
+    },
+    {
+      "path": "src/integration.d.ts",
+      "bytes": 1322,
+      "sha256": "78fd712830bfc3d131c3178d981846435a33142c588da4df3422fed29dc1364e"
+    },
+    {
+      "path": "src/integration.js",
+      "bytes": 9151,
+      "sha256": "5680e3d7042303253dd64fd6970e817adcf33ac23abbecb6c41b2f44b5f8dfff"
+    },
+    {
+      "path": "src/lifecycle.js",
+      "bytes": 1920,
+      "sha256": "d3e674066a4fe05229b1e8a7a9fb90ac402f24b85ecd070b083edfcb8fb44e1b"
+    },
+    {
+      "path": "src/loop.js",
+      "bytes": 2004,
+      "sha256": "c9cd67fe3f05c1b513ed2d7c5232d98bc4d910cdccc423d3d293e6ec2576f20a"
+    },
+    {
+      "path": "src/presets.js",
+      "bytes": 1753,
+      "sha256": "aaba146901377dcd88dd997cb17ccc60c2d8db10dc336f57583811479cdfcc9e"
+    },
+    {
+      "path": "src/profiles.js",
+      "bytes": 2378,
+      "sha256": "1f73d1a7c160c17fa979d0809e33c173cb79f8dbb3ac0ff8f647aca8c55e2775"
+    },
+    {
+      "path": "src/storage.js",
+      "bytes": 6235,
+      "sha256": "89f7b56dce9723a5a395c36778dbb106f589f52cde2abc6fe28d9b5a6a4f2969"
+    },
+    {
+      "path": "src/ui.js",
+      "bytes": 7807,
+      "sha256": "ba959c8daa67a2f6feda9b20a470bd2b48a9ca8bc4b5bc150607d173a507fe3f"
+    },
+    {
+      "path": "styles/game-ui.css",
+      "bytes": 8749,
+      "sha256": "3bfa10636b4877b9af643149c6cb87be423db24f7e01cc91de5ff5f2d47fe608"
+    },
+    {
+      "path": "styles/integration.css",
+      "bytes": 1060,
+      "sha256": "54463dff867ce899565bccccd6755206f39c7a43a490e7b353516f437367254d"
+    }
+  ]
+}

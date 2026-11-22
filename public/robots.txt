@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://spelling.giacomel.info/sitemap.xml

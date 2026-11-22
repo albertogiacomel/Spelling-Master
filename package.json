@@ -1,0 +1,26 @@
+{
+  "name": "spelling-master",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Spelling & Magic Box: gioco educativo di spelling inglese per la scuola primaria",
+  "scripts": {
+    "build": "npm run typecheck && node scripts/build.js",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "node --test scripts/core_test.js scripts/storage_test.js",
+    "test:browser": "node scripts/browser_test.js",
+    "check:privacy": "node scripts/site-privacy-check.js",
+    "verify:live": "node scripts/verify-live.js",
+    "check:design-system": "node ../videogames-kit/scripts/check-design-system.ts"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "typescript": "5.9.3"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
+}

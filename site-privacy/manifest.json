@@ -1,0 +1,77 @@
+{
+  "name": "giacomel-site-privacy",
+  "version": "1.2.0",
+  "site": "spelling.giacomel.info",
+  "source": {
+    "repository": "albertogiacomel/videogames-kit",
+    "commit": "a2ea2f89926ea9029aae7e15002f4154e7c54a86",
+    "dirty": false
+  },
+  "files": [
+    {
+      "path": "runtime.js",
+      "bytes": 24763,
+      "sha256": "3b9773a3c86c664b1b3df41a453500e7468da5bbb6827ee6fa4edb64c5622642"
+    },
+    {
+      "path": "site.css",
+      "bytes": 11906,
+      "sha256": "9693e4254094773606d0a7d138f3bc285700d15c74d270feffc41a86deb14a7f"
+    },
+    {
+      "path": "favicon.svg",
+      "bytes": 375,
+      "sha256": "09e4ca971b031d5a5ce7c160978d6cf620eb81800a03cb06502238fc7a2a52bc"
+    },
+    {
+      "path": "design-tokens.css",
+      "bytes": 3960,
+      "sha256": "73b4f8c364f8b2833f9f4a582faf40e66bae3de7f1291dd190b0c6c6b05ed271"
+    },
+    {
+      "path": "fonts/inter-latin.woff2",
+      "bytes": 48432,
+      "sha256": "c940764593d0fe5d596be327ca7558855e018039fb78509aa21921fd3644c3e4"
+    },
+    {
+      "path": "fonts/OFL.txt",
+      "bytes": 4376,
+      "sha256": "5dd548d31a85f756e01d63e00d7faf1e324103ed3e9102fcbbabf2cc2db6dd39"
+    },
+    {
+      "path": "fonts/provenance.json",
+      "bytes": 799,
+      "sha256": "115b8bbc296b771ab413b1155cf1f47813aab37209b39d4e5afc548eb921162a"
+    },
+    {
+      "path": "privacy.html",
+      "bytes": 11642,
+      "sha256": "a4b8ed1ddb4be56b1ea08ff1e11e167d76d4b09228236d1a07d4ac972deec5bf"
+    },
+    {
+      "path": ".gitattributes",
+      "bytes": 29,
+      "sha256": "41cf07855f56e056083177e09c03564379c577b75213445b32b7753f6f2b38f2"
+    },
+    {
+      "path": "vendor/klaro-0.7.21/klaro-no-css.js",
+      "bytes": 212401,
+      "sha256": "add6fa3b97d78700b67180edb2074df5c7217011b7e746a9c47fd31c23426d11"
+    },
+    {
+      "path": "vendor/klaro-0.7.21/klaro.min.css",
+      "bytes": 19607,
+      "sha256": "20ab584ad65b1273502a8524f72c343a3b707180b1ec67fd7756a5ee63c6af36"
+    },
+    {
+      "path": "vendor/klaro-0.7.21/LICENSE",
+      "bytes": 1658,
+      "sha256": "77e99125636bef70b534cc86b6f890bf8b33b453d4a9402f3ff4b2cf26e7fa82"
+    },
+    {
+      "path": "vendor/klaro-0.7.21/provenance.json",
+      "bytes": 784,
+      "sha256": "435054a46a4e134d470239313a1ceee0e746896adba3f60f5c66c9ce705537ad"
+    }
+  ]
+}
