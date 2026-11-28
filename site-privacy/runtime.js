@@ -228,13 +228,19 @@
     }
     for (const link of document.querySelectorAll('[data-site-privacy-link]')) { link.textContent = text[lang()].privacy; link.href = policyUrl(); }
     for (const button of document.querySelectorAll('[data-site-privacy-open]')) button.textContent = text[lang()].choices;
-    for (const link of document.querySelectorAll('[data-site-home]')) link.setAttribute('aria-label', text[lang()].home);
+    for (const link of document.querySelectorAll('[data-site-home]')) {
+      const visible = (link.textContent || '').replace(/\s+/gu, ' ').trim();
+      link.setAttribute('aria-label', visible ? visible + ' — ' + text[lang()].home : text[lang()].home);
+    }
     for (const nav of document.querySelectorAll('[data-site-nav]')) nav.setAttribute('aria-label', text[lang()].navigation);
     for (const group of document.querySelectorAll('[data-site-languages]')) group.setAttribute('aria-label', text[lang()].languages);
     for (const button of document.querySelectorAll('[data-site-language]')) {
+      const code = (button.dataset.siteLanguage || '').toUpperCase();
       const selected = button.dataset.siteLanguage === lang();
       button.setAttribute('aria-pressed', String(selected));
-      button.setAttribute('aria-label', button.dataset.siteLanguage === 'it' ? (selected ? 'Italiano' : 'Switch to Italian') : (selected ? 'English' : 'Passa all’inglese'));
+      const target = button.dataset.siteLanguage === 'it' ? (lang() === 'it' ? 'Passa all’italiano' : 'Switch to Italian') : (lang() === 'it' ? 'Passa all’inglese' : 'Switch to English');
+      const own = button.dataset.siteLanguage === 'it' ? 'Italiano' : 'English';
+      button.setAttribute('aria-label', code + ' — ' + (selected ? own : target));
     }
     for (const section of document.querySelectorAll('[data-site-locale]')) section.hidden = section.dataset.siteLocale !== lang();
     const policyTitle = document.querySelector('[data-site-locale="' + lang() + '"] h1');
@@ -279,13 +285,14 @@
     });
     const homeLink = (withText = false) => {
       const link = document.createElement('a'); link.href = 'https://www.giacomel.info/'; link.dataset.siteHome = '';
-      link.setAttribute('aria-label', lang() === 'it' ? 'Torna alla homepage' : 'Back to homepage');
+      const homeLabel = () => lang() === 'it' ? 'Torna alla homepage' : 'Back to homepage';
       const icon = document.createElement('img'); icon.src = new URL('favicon.svg', base); icon.width = 32; icon.height = 32; icon.alt = '';
       icon.className = 'site-home-icon';
       link.appendChild(icon);
       if (withText) {
         const text = document.createElement('span'); text.textContent = 'giacomel.info'; link.appendChild(text);
       }
+      link.setAttribute('aria-label', withText ? 'giacomel.info — ' + homeLabel() : homeLabel());
       return link;
     };
     let header = document.querySelector('[data-site-header]');

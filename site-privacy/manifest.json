@@ -7,11 +7,17 @@
     "commit": "a2ea2f89926ea9029aae7e15002f4154e7c54a86",
     "dirty": false
   },
+  "patches": [
+    {
+      "path": "runtime.js",
+      "change": "WCAG 2.5.3: site language buttons and homepage links expose an accessible name that contains their visible text"
+    }
+  ],
   "files": [
     {
       "path": "runtime.js",
-      "bytes": 24763,
-      "sha256": "3b9773a3c86c664b1b3df41a453500e7468da5bbb6827ee6fa4edb64c5622642"
+      "bytes": 25247,
+      "sha256": "6c0a846b62c12cbb31ae7db89906879540c98a43057d31cea51c232898913586"
     },
     {
       "path": "site.css",
