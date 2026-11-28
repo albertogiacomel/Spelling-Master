@@ -4,15 +4,9 @@
   "site": "spelling.giacomel.info",
   "source": {
     "repository": "albertogiacomel/videogames-kit",
-    "commit": "a2ea2f89926ea9029aae7e15002f4154e7c54a86",
+    "commit": "42ce0f185e31329e9f36939090402e404fa52598",
     "dirty": false
   },
-  "patches": [
-    {
-      "path": "runtime.js",
-      "change": "WCAG 2.5.3: site language buttons and homepage links expose an accessible name that contains their visible text"
-    }
-  ],
   "files": [
     {
       "path": "runtime.js",
